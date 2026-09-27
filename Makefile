@@ -1,4 +1,4 @@
-#indx#	Makefile.simple - Makefile for simple cpi applications
+#indx#	Makefile.simple - Makefile for old IO Software tools
 #@HDR@	$Id$
 #@HDR@
 #@HDR@	Copyright (c) 2024-2026 Christopher Caldwell (Christopher.M.Caldwell0@gmail.com)
@@ -26,7 +26,7 @@
 #
 #hist#	2026-02-10 - Christopher.M.Caldwell0@gmail.com - Created
 ########################################################################
-#doc#	Makefile.simple - Makefile for simple cpi applications
+#doc#	Makefile.simple - Makefile for old IO Software tools
 ########################################################################
 PROGRAMS=uss mutation
 PROJECTSDIR?=$(shell echo $(CURDIR) | sed -e 's+/projects/.*+/projects+')
@@ -56,6 +56,8 @@ RANLIB=ranlib
 CP=cp
 LP=lp
 
+bins:		all
+
 all:		$(ARCHIVES) $(BINS)
 
 $(BINDIR)/time:	time.c
@@ -63,18 +65,18 @@ $(BINDIR)/time:	time.c
 
 $(LIBDIR)/libgpu.a:	\
 		$(OBJDIR)/format.o $(OBJDIR)/string.o			\
-		$(OBJDIR)/getcwd.o $(OBJDIR)/getenv.o $(OBJDIR)/parse.o	\
-		$(OBJDIR)/sleep.o $(OBJDIR)/system.o			\
-		$(OBJDIR)/tempfile.o $(OBJDIR)/time.o			\
-		$(OBJDIR)/iosubs.o $(OBJDIR)/mem.o			\
-		$(OBJDIR)/event.o $(OBJDIR)/plot.o			\
-		$(OBJDIR)/ttyhandler.o $(OBJDIR)/hashtable.o		\
-		$(OBJDIR)/capparse.o $(OBJDIR)/lock.o			\
-		$(OBJDIR)/cversion.o
+		$(OBJDIR)/getcwd.o $(OBJDIR)/getenv.o			\
+		$(OBJDIR)/parse.o $(OBJDIR)/sleep.o			\
+		$(OBJDIR)/system.o $(OBJDIR)/tempfile.o			\
+		$(OBJDIR)/time.o $(OBJDIR)/iosubs.o			\
+		$(OBJDIR)/mem.o $(OBJDIR)/event.o			\
+		$(OBJDIR)/plot.o $(OBJDIR)/ttyhandler.o			\
+		$(OBJDIR)/hashtable.o $(OBJDIR)/capparse.o		\
+		$(OBJDIR)/lock.o $(OBJDIR)/cversion.o
 		rm -f $@
 		ar cq $@ $^
 
-install:	$(LIBDIR)/libgpu.a
+orig_install:	$(LIBDIR)/libgpu.a
 		$(CP) $(LIBDIR)/libgpu.a $(LIB)/libgpu.a
 #		$(CHMOD) 644 $(LIB)/libgpu.a
 #		$(CHOWN) bin:bin $(LIB)/libgpu.a
